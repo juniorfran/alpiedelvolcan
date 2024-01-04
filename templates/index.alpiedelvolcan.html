@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Tours</title>
+</head>
+<body>
+
+<h1>Lista de Tours</h1>
+
+{% for tour in tours %}
+    <div>
+        <h2>{{ tour.titulo }}</h2>
+        <p>{{ tour.descripcion }}</p>
+        <p>Precio: ${{ tour.precio }}</p>
+        <!-- Puedes agregar más detalles según sea necesario -->
+        <img src="{{ tour.imagen.url }}" alt="{{ tour.titulo }}">
+    </div>
+{% endfor %}
+
+</body>
+</html>
