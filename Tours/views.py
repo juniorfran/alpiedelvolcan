@@ -8,4 +8,4 @@ def index(request):
     # Puedes agregar más lógica aquí según tus necesidades
 
     # Renderizar la plantilla 'index.html' con la lista de tours
-    return render(request, 'index.alpiedelvolcan.html', {'tours': tours})
+    return render(request, 'show_tours.html', {'tours': tours})
