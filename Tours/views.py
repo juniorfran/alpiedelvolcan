@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Tour
 
-def index(request):
+def tours_index(request):
     # Obtener todos los tours desde la base de datos
     tours = Tour.objects.all()
 

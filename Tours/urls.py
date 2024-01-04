@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    
+    #urls del index
+    path('', views.tours_index, name='index'),
     # Agrega más URL según sea necesario
 ]
