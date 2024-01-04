@@ -14,9 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from . import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     #url para la pagina principal
@@ -28,3 +30,8 @@ urlpatterns = [
     #url para tours
     path('tours/', include('Tours.urls')),
 ]
+
+
+# Configuración para servir archivos estáticos en entorno de desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
