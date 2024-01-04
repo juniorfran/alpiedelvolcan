@@ -25,7 +25,16 @@ SECRET_KEY = 'django-insecure-71ilsry+%0yrbexaf^j!f41b0i=t!g+8%pvd!1d8a)azph_nd-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['alpiedelvolcan.azurewebsites.net', '0.0.0.0:8000', '127.0.0.1']
+CORS_ALLOWED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net']
+
+# Security & HTTPS settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
+
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net']
 
 
 # Application definition
