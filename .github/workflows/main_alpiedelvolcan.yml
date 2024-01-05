@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'alpiedelvolcan'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C237D924F9A4CB08325AF7D1D4FE4AF }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FC6103D6F10A44C484928544ED661284 }}
