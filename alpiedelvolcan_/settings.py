@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-71ilsry+%0yrbexaf^j!f41b0i=t!g+8%pvd!1d8a)azph_nd-
 DEBUG = True
 
 ALLOWED_HOSTS = ['alpiedelvolcan.azurewebsites.net', 'http://0.0.0.0:8000/', 'http://127.0.0.1:8000/']
-CORS_ALLOWED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net/']
+#CORS_ALLOWED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net/']
 
 # Security & HTTPS settings
 SESSION_COOKIE_SECURE = True
