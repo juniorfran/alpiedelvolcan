@@ -17,6 +17,7 @@ class Tour(models.Model):
     imagen = models.ImageField(upload_to='tours')
     tipo_tour = models.ForeignKey(TipoTour, on_delete=models.SET_NULL, null=True, blank=True)
     
+    
     def __str__(self):
         return f"{self.titulo} - ${self.precio}"
 
@@ -27,3 +28,12 @@ class ImagenTour(models.Model):
 
     def __str__(self):
         return f"Imagen para {self.tour.titulo}"
+    
+    
+class Resena(models.Model):
+    tour = models.ForeignKey(Tour, related_name='resenas', on_delete=models.CASCADE)
+    estrellas = models.PositiveIntegerField()
+    comentario = models.TextField()
+
+    def __str__(self):
+        return f"Reseña para {self.tour.titulo}"

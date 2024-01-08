@@ -51,22 +51,46 @@
     </div>
 
     <!-- Apartado de Reseñas -->
+
+        <!-- Formulario de Reseñas -->
+    <div class="mt-4">
+        <h2>Deja tu Reseña</h2>
+        <form method="post" action="{% url 'tour_detail' tour_id=tour.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+        </form>
+    </div>
+
+    <!-- Lista de Reseñas -->
     <div class="mt-4">
         <h2>Reseñas</h2>
-        <!-- Agrega aquí tu formulario para dejar reseñas -->
+        <ul>
+            {% for resena in resenas %}
+                <li>{{ resena.estrellas }} Estrellas - {{ resena.comentario }}</li>
+            {% endfor %}
+        </ul>
     </div>
-</div>
+
 <!-- Tour Detail End -->
 
+{% endblock content %}
+
+
+{% block extra_js %}
+
+<!-- Tu script para inicializar Owl Carousel -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        new Splide('#tour-slider', {
-            type       : 'fade',
-            heightRatio: 0.5,
-            pagination : false,
-            arrows     : true,
-        }).mount();
+    $(document).ready(function () {
+        $("#tour-slider").owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true
+            // Otros parámetros según tus necesidades
+        });
     });
 </script>
 
-{% endblock content %}
+{% endblock extra_js %}
