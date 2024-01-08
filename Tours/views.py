@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Tour
 
 def tours_index(request):
@@ -9,3 +9,7 @@ def tours_index(request):
 
     # Renderizar la plantilla 'index.html' con la lista de tours
     return render(request, 'show_tours.html', {'tours': tours})
+
+def tour_detail(request, tour_id):
+    tour = get_object_or_404(Tour, id=tour_id)
+    return render(request, 'detail_tours.html', {'tour': tour})

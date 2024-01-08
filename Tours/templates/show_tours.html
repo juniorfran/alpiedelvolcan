@@ -1,17 +1,57 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>Lista de Tours</h1>
 
-{% for tour in tours %}
-    <div>
-        <h2>{{ tour.titulo }}</h2>
-        <p>{{ tour.descripcion }}</p>
-        <p>Precio: ${{ tour.precio }}</p>
-        <!-- Puedes agregar más detalles según sea necesario -->
-        <img src="{{ tour.imagen.url }}" alt="{{ tour.titulo }}">
+<!-- Header Start -->
+<div class="container-fluid page-header">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+            <h3 class="display-4 text-white text-uppercase">Tours</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0 text-uppercase"><a class="text-white" href="">Inicio</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Tours</p>
+            </div>
+        </div>
     </div>
-{% endfor %}
+</div>
+<!-- Header End -->
+
+<!-- Booking Start -->
+<div class="container-fluid booking mt-5 pb-5">
+    <div class="container pb-5">
+        <div class="bg-light shadow" style="padding: 30px;">
+            <!-- ... (Tu código actual de la sección de reservas) ... -->
+        </div>
+    </div>
+</div>
+<!-- Booking End -->
+
+<!-- Destination Start -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <div class="text-center mb-3 pb-3">
+            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Tours Al Pie del Volcan</h6>
+            <h1>Explora con los mejores Tours</h1>
+        </div>
+        <div class="row">
+            {% for tour in tours %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="destination-item position-relative overflow-hidden mb-2">
+                    <img class="img-fluid" src="{{ tour.imagen.url }}" alt="{{ tour.titulo }}">
+                    <a class="destination-overlay text-white text-decoration-none" href="{% url 'tour_detail' tour.id %}">
+                        <h5 class="text-white">{{ tour.titulo }}</h5>
+                        {% comment %} <span>{{ tour.descripcion }}</span> {% endcomment %}
+                        <p class="text-white">Precio: ${{ tour.precio }}</p>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Destination End -->
 
 
 {% endblock content %}

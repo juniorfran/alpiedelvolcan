@@ -8,20 +8,45 @@
 </head>
 
 <body>
+
     {% include "sections/topbardstart.html" %}
     {% include "sections/navbar.html" %}
-    {% include "sections/carrusel_inicio.html" %}
-    {% include "sections/booking_start.html" %}
-    {% include "sections/featurestart.html" %}
-    {% include "sections/destination.html" %}
-    {% include "sections/services.html" %}
-    {% include "sections/package.html" %}
-    {% include "sections/registration.html" %}
-    {% include "sections/team.html" %}
-    {% include "sections/testimonial.html" %}
-    {% include "sections/footer.html" %}
+
+    <div class="container">
+
+        {% block content %}
 
 
+
+        {% endblock content %}
+
+
+    </div>
+
+{% block content1 %}
+    {% if request.path == '/' %}  {# Verifica si la URL es la página de inicio #}
+
+        {% include "sections/carrusel_inicio.html" %}
+        {% include "sections/booking_start.html" %}
+        {% include "sections/featurestart.html" %}
+        {% include "sections/destination.html" %}
+        {% include "sections/services.html" %}
+        {% include "sections/package.html" %}
+        {% include "sections/registration.html" %}
+        {% include "sections/team.html" %}
+        {% include "sections/testimonial.html" %}
+        
+
+    {% endif %}
+{% endblock content1 %}
+
+{% include "sections/footer.html" %}
+
+
+
+
+    <!-- Script de Bootstrap (requerido) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>

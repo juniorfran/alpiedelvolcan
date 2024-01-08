@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Header Start -->
+<div class="container-fluid page-header">
+    <div class="container">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+            <h3 class="display-4 text-white text-uppercase">Tours</h3>
+            <div class="d-inline-flex text-white">
+                <p class="m-0 text-uppercase"><a class="text-white" href="">Inicio</a></p>
+                <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                <p class="m-0 text-uppercase">Tours</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Booking Start -->
+<div class="container-fluid booking mt-5 pb-5">
+    <div class="container pb-5">
+        <div class="bg-light shadow" style="padding: 30px;">
+            <!-- ... (Tu código actual de la sección de reservas) ... -->
+        </div>
+    </div>
+</div>
+<!-- Booking End -->
+
+<!-- Tour Detail Start -->
+<div class="container mt-5">
+    <!-- Slider de Fotos -->
+    <div id="tour-slider" class="splide">
+        <div class="splide__track">
+            <ul class="splide__list">
+                {% for imagen in tour.imagenes.all %}
+                <li class="splide__slide">
+                    <img src="{{ imagen.imagen.url }}" alt="Imagen del Tour">
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Información del Tour -->
+    <div class="mt-4">
+        <h1>{{ tour.titulo }}</h1>
+        <p>{{ tour.descripcion }}</p>
+        <p>Precio: ${{ tour.precio }}</p>
+        <button class="btn btn-primary">Reservar</button>
+    </div>
+
+    <!-- Apartado de Reseñas -->
+    <div class="mt-4">
+        <h2>Reseñas</h2>
+        <!-- Agrega aquí tu formulario para dejar reseñas -->
+    </div>
+</div>
+<!-- Tour Detail End -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Splide('#tour-slider', {
+            type       : 'fade',
+            heightRatio: 0.5,
+            pagination : false,
+            arrows     : true,
+        }).mount();
+    });
+</script>
+
+{% endblock content %}
