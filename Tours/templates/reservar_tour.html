@@ -1,0 +1,184 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+
+	{% comment %} <!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{% static 'reserva/css/bootstrap.min.css' %}" /> {% endcomment %}
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{% static 'reserva/css/style.css' %}" />
+
+    <div class="container mt-5">
+        <h2>Reservar Tour - {{ tour.nombre }}</h2>
+        <form method="post" action="{% url 'reservar_tour' tour_id=tour.id %}">
+          {% csrf_token %}
+          <div id="booking" class="section" style="background-image: url('{{ tour.imagen.url }}');">
+            <div class="section-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="booking-form">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                    <span class="form-label">Nombre</span>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">DUI:</span>
+                                      <input type="text" class="form-control" id="dui" name="dui" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Correo Electronico</span>
+                                      <input type="email" class="form-control" id="correo_electronico" name="correo_electronico" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                    <span class="form-label">Direccion</span>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Adultos</span>
+                                        <select class="form-control" id="cantidad_adultos" name="cantidad_adultos" min="1" required>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">ninos</span>
+                                        <select class="form-control"  id="cantidad_ninos" name="cantidad_ninos" min="0" required>
+                                            <option>0</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% comment %} <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Fecha de Reserva</span>
+                                        <input class="form-control" type="date" id="fecha_reserva" name="fecha_reserva"  required>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+
+                            <!-- Con este bloque -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="fecha_reserva" class="form-label">Fecha de Reserva</label>
+                                        <input class="form-control" type="date" id="fecha_reserva" name="fecha_reserva" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-btn">
+                                <button type="submit" class="primary submit-btn">Reservar</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+
+<!-- Agrega esto en la sección de scripts -->
+{% comment %} <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Selecciona el input de fecha
+        var fechaReservaInput = document.getElementById('fecha_reserva');
+    
+        // Configura el valor mínimo para hoy
+        var hoy = new Date();
+        var dd = hoy.getDate();
+        var mm = hoy.getMonth() + 1;
+        var yyyy = hoy.getFullYear();
+    
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+    
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+    
+        var fechaMinima = yyyy + '-' + mm + '-' + dd;
+    
+        fechaReservaInput.setAttribute('min', fechaMinima);
+    
+        // Configura el evento de cambio para la fecha
+        fechaReservaInput.addEventListener('change', function() {
+            // Obtén el día de la semana seleccionado
+            var fechaSeleccionada = new Date(this.value);
+            var diaSemana = fechaSeleccionada.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+    
+            // Habilita solo los sábados y domingos
+            if (diaSemana !== 1 && diaSemana !== 6) {
+                alert('Solo puedes reservar para los sábados y domingos.');
+                this.value = ''; // Limpia la fecha seleccionada
+            }
+        });
+    
+        // Configura la fecha de inicio como el próximo sábado
+        var proximoSabado = new Date();
+        proximoSabado.setDate(hoy.getDate() + (6 - hoy.getDay()) + 1);
+        var ddProximoSabado = proximoSabado.getDate();
+        var mmProximoSabado = proximoSabado.getMonth() + 1;
+        var yyyyProximoSabado = proximoSabado.getFullYear();
+    
+        if (ddProximoSabado < 10) {
+            ddProximoSabado = '0' + ddProximoSabado;
+        }
+    
+        if (mmProximoSabado < 10) {
+            mmProximoSabado = '0' + mmProximoSabado;
+        }
+    
+        var fechaProximoSabado = yyyyProximoSabado + '-' + mmProximoSabado + '-' + ddProximoSabado;
+        fechaReservaInput.setAttribute('value', fechaProximoSabado);
+    });
+    </script> {% endcomment %}
+    
+
+    <!-- Agrega este script en la sección de scripts -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#fecha_reserva", {
+            minDate: 'today',  // Solo fechas a partir de hoy
+            disable: [
+                function(date) {
+                    // Deshabilitar todos los días excepto sábados (6) y domingos (0)
+                    return (date.getDay() !== 0 && date.getDay() !== 6);
+                }
+            ],
+            dateFormat: 'Y-m-d'  // Ajusta el formato según tu preferencia
+        });
+    });
+    </script>
+
+{% endblock extra_js %}

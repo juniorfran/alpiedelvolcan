@@ -40,6 +40,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net']
 
 
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.ceinversiones.com'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'fvillalta@ceinversiones.com'
+EMAIL_HOST_PASSWORD = 'YrN.yYX-8uuz'
+
 # Application definition
 
 INSTALLED_APPS = [
