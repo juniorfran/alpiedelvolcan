@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block content %}
   <div class="container mt-5">
     <h2 class="mb-4">¡Reserva Exitosa!</h2>
@@ -20,11 +20,17 @@
       <li class="list-group-item"><strong>Cantidad de Adultos:</strong> {{ reserva.cantidad_adultos }}</li>
       <li class="list-group-item"><strong>Cantidad de ninos:</strong> {{ reserva.cantidad_ninos }}</li>
       <li class="list-group-item"><strong>Fecha de Reserva:</strong> {{ reserva.fecha_reserva }}</li>
-      <li class="list-group-item"><strong>Total a Pagar:</strong> <span class="text-primary h4">{{ reserva.total_pagar }}</span></li>
+      <li class="list-group-item">
+        <strong>Total a Pagar:</strong>
+        <span class="text-primary h4">
+            ${{ reserva.total_pagar|floatformat:2|intcomma }}
+        </span>
+      </li>
       <!-- Agrega más detalles según sea necesario -->
     </ul>
 
     <p class="lead">Gracias por elegir nuestro tour. ¡Esperamos que tengas una experiencia maravillosa!</p>
+    <p class="lead">tienes 24 horas para realizar tu pago.</p>
   </div>
 
   <!-- Scripts de Bootstrap y jQuery -->

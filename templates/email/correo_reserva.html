@@ -1,3 +1,5 @@
+
+{% load humanize %}
 <!-- templates/correo_reserva.html -->
 <!DOCTYPE html>
 <html lang="es">
@@ -26,7 +28,13 @@
             <li><strong>Cantidad de Adultos:</strong> {{ cantidad_adultos }}</li>
             <li><strong>Cantidad de Niños:</strong> {{ cantidad_ninos }}</li>
             <li><strong>Fecha de Reserva:</strong> {{ fecha_reserva }}</li>
-            <li><strong>Total a Pagar:</strong> <span style="color: #007bff; font-size: 20px;">{{ total_pagar }}</span></li>
+            {% comment %} <li><strong>Total a Pagar:</strong> <span style="color: #007bff; font-size: 20px;">{{ total_pagar }}</span></li> {% endcomment %}
+            <li>
+                <strong>Total a Pagar:</strong>
+                <span class="text-primary h4" style="color: #007bff; font-size: 20px;">
+                    ${{ total_pagar|floatformat:2|intcomma }}
+                </span>
+              </li>
             <!-- Agrega más detalles según sea necesario -->
         </ul>
 
