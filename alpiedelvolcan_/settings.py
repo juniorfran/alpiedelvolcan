@@ -48,6 +48,9 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'fvillalta@ceinversiones.com'
 EMAIL_HOST_PASSWORD = 'YrN.yYX-8uuz'
+# DEFAULT_FROM_EMAIL = 'fvillalta@alpiedelvolcan.com'
+# EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+# SENDGRID_API_KEY = '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'
 
 # Application definition
 
@@ -60,6 +63,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'Tours',
+    'Servicios',
+    'Configuraciones',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +84,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates/sections'),
             os.path.join(BASE_DIR, 'tours/templates'),
             ],
         'APP_DIRS': True,

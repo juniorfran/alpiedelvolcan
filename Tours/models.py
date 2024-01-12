@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from decimal import Decimal
 from django.core.validators import MinValueValidator
@@ -140,7 +141,7 @@ class Reserva(models.Model):
 
         # Envia el código de reserva y el código QR por correo electrónico
         subject = 'Código de Reserva para el Tour'
-        from_email = 'fvillalta@ceinversiones.com'  # Cambia esto al remitente real
+        from_email = settings.DEFAULT_FROM_EMAIL  # Cambia esto al remitente real
         to_email = [self.correo_electronico]
 
         # Renderiza el contenido del correo utilizando un template
