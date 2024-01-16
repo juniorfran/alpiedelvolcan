@@ -65,6 +65,8 @@ INSTALLED_APPS = [
     'Tours',
     'Servicios',
     'Configuraciones',
+    'Nosotros',
+    'Contactanos',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,11 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates/sections'),
-            os.path.join(BASE_DIR, 'tours/templates'),
+            os.path.join(BASE_DIR, 'Tours/templates'),
+            os.path.join(BASE_DIR, 'Servicios/templates'),
+            os.path.join(BASE_DIR, 'Nosotros/templates'),
+            os.path.join(BASE_DIR, 'Contactanos/templates'),
+            os.path.join(BASE_DIR, 'Configuraciones/templates'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {

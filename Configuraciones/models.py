@@ -92,8 +92,18 @@ class Contacts(models.Model):
     def __str__(self):
         return self.contact_email
     
-#urls de informacion general 
+#urls de Secciones Principales 
 class Urls_info(models.Model):
+    title = models.CharField(max_length=50)
+    url = models.CharField(max_length=200)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    
+    #funcion str
+    def __str__(self):
+        return self.title
+
+#urls de informacion de interes 
+class Urls_interes(models.Model):
     title = models.CharField(max_length=50)
     url = models.URLField(max_length=200)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -101,7 +111,6 @@ class Urls_info(models.Model):
     #funcion str
     def __str__(self):
         return self.title
-
     
     
     

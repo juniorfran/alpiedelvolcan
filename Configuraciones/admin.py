@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info
+from .models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info, Urls_interes
 
 @admin.register(Barra_Principal)
 class BarraPrincipalAdmin(admin.ModelAdmin):
@@ -22,5 +22,9 @@ class ContactsAdmin(admin.ModelAdmin):
     list_display = ('contact_email', 'contact_phone', 'addres', 'fecha_creacion')
 
 @admin.register(Urls_info)
+class UrlsInfoAdmin(admin.ModelAdmin):
+    list_display = ('title', 'url', 'fecha_creacion')
+    
+@admin.register(Urls_interes)
 class UrlsInfoAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'fecha_creacion')

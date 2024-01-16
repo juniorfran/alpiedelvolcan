@@ -30,6 +30,9 @@ urlpatterns = [
     
     #url para tours
     path('tours/', include('Tours.urls')),
+    
+    #url para nosotros
+    path('nosotros/', include('Nosotros.urls')),
 ]
 
 

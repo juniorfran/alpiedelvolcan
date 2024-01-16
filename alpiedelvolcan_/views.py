@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Tours.models import Tour
-from Configuraciones.models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info
+from Configuraciones.models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info, Urls_interes
 
 #vista para mostrar la pagina principal
 def index(request):
@@ -36,6 +36,9 @@ def index(request):
         
     }
     
+    #urls de interes
+    urls_interes = Urls_interes.objects.all()
+    
     
     context={
         'tours':tours,
@@ -48,6 +51,7 @@ def index(request):
         'urls_info':urls_info,
         'titulo':titulo_pagina,
         'descripcion':descripciones,
+        'urls_interes':urls_interes,
         }
     
     
