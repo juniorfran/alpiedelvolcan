@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
+
+from Configuraciones.models import Contacts, Urls_info, Urls_interes
 from .models import ImagenTour, Resena, Tour, Reserva
 from .forms import ResenaForm, ReservaForm
 from django.utils import timezone
@@ -39,6 +41,29 @@ def tour_detail(request, tour_id):
 
 def reservar_tour(request, tour_id):
     tour = get_object_or_404(Tour, pk=tour_id)
+    tipo_document = Reserva.DOCUMENTOS_VALIDOS
+    # for tupla in tipo_document:
+    #     tipo_document = tupla[0]
+    
+        #obtener todos los datos de contacto
+    data_contact = Contacts.objects.latest()
+    
+    #obtener todas las url de informacion
+    urls_info = Urls_info.objects.all()
+    
+    titulo_pagina = {
+        'titulo_largo': "AL PIE DEL VOLCAN",
+        'medio_titulo': "AL PIE DEL",
+        'titulo_corto': "VOLCAN",
+    }
+    descripciones = {
+        'descripcion_corta':'Aventura en el Volcan',
+        'descripcion_larga':'Encuentra aventuras y descubre en este viaje al pie del volcan, donde podrás disfrutar de una experiencia única.',
+        
+    }
+    
+    #urls de interes
+    urls_interes = Urls_interes.objects.all()
 
     if request.method == 'POST':
         # Obtén los datos del formulario directamente del request.POST
@@ -51,9 +76,16 @@ def reservar_tour(request, tour_id):
         cantidad_ninos = int(request.POST.get('cantidad_ninos'))
         fecha_reserva = request.POST.get('fecha_reserva')
         
+        #nuevo campos agregados
+        telefono = request.POST.get("telefono")
+        pais_residencia = request.POST.get("pais_residencia")
+        tipo_documento = request.POST.get("tipo_documento")
+        
         # Obtener los precios de adulto y nino del tour
         precio_adulto = tour.precio_adulto
         precio_nino = tour.precio_nino
+        
+        
 
         reserva = Reserva(
             tour=tour,
@@ -66,15 +98,57 @@ def reservar_tour(request, tour_id):
             fecha_reserva=fecha_reserva,
             precio_adulto=precio_adulto,
             precio_nino=precio_nino,
+            telefono=telefono,
+            pais_residencia=pais_residencia,
+            tipo_documento=tipo_documento,
         )
         reserva.save()
         
         # Redirige a la página de éxito y pasa el reserva_id como parámetro
         return redirect('reserva_exitosa', reserva_id=reserva.id)
     # Renderiza el formulario para el método GET
-    return render(request, 'reservar_tour.html', {'tour': tour})
+    
+    context = {
+        'data_contact':data_contact,
+        'urls_info':urls_info,
+        'titulo':titulo_pagina,
+        'descripcion':descripciones,
+        'urls_interes':urls_interes,
+        'tour': tour,
+        'tipo_document':tipo_document,
+    }
+    
+    return render(request, 'reservar_tour.html', context)
 
 def reserva_exitosa(request, reserva_id):
     reserva = Reserva.objects.get(pk=reserva_id)
+        #obtener todos los datos de contacto
+    data_contact = Contacts.objects.latest()
+    
+    #obtener todas las url de informacion
+    urls_info = Urls_info.objects.all()
+    
+    titulo_pagina = {
+        'titulo_largo': "AL PIE DEL VOLCAN",
+        'medio_titulo': "AL PIE DEL",
+        'titulo_corto': "VOLCAN",
+    }
+    descripciones = {
+        'descripcion_corta':'Aventura en el Volcan',
+        'descripcion_larga':'Encuentra aventuras y descubre en este viaje al pie del volcan, donde podrás disfrutar de una experiencia única.',
+        
+    }
+    
+    #urls de interes
+    urls_interes = Urls_interes.objects.all()
+    
+    context = {
+        'data_contact':data_contact,
+        'urls_info':urls_info,
+        'titulo':titulo_pagina,
+        'descripcion':descripciones,
+        'urls_interes':urls_interes,
+        'reserva': reserva,
+    }
 
-    return render(request, 'reserva_exitosa.html', {'reserva': reserva})
+    return render(request, 'reserva_exitosa.html', context)

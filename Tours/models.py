@@ -68,6 +68,21 @@ class Reserva(models.Model):
     qr_code_url = models.URLField(blank=True)
     qr_code = models.ImageField(upload_to='qrcodes', blank=True, null=True)
     
+    
+    #campos extras
+    #lista de tipos de documentos
+    DOCUMENTOS_VALIDOS = (
+        (' ', ' '),
+        ('DUI', 'Documento Unico de Identidad'),
+        ('CE', 'Cédula de extrangería'),
+        ('LIC', 'Licencia Nacional'),
+        ('PA', 'Pasaporte'),
+        ('Otro', 'Otro'),
+        )
+    tipo_documento = models.CharField(max_length=50, choices=DOCUMENTOS_VALIDOS)
+    telefono = models.CharField(max_length=15)
+    pais_residencia = models.CharField(max_length=50, default="El Salvador")
+    
      # Nuevos campos para el total a pagar y el iva
     precio_adulto = models.DecimalField(max_digits=10, decimal_places=2)
     precio_nino = models.DecimalField(max_digits=10, decimal_places=2)
@@ -150,7 +165,10 @@ class Reserva(models.Model):
             'codigo_reserva': self.codigo_reserva,
             'nombre': self.nombre,
             'dui': self.dui,
+            'tipo_documento': self.tipo_documento,
+            'telefono': self.telefono,
             'correo_electronico': self.correo_electronico,
+            'pais_residencia': self.pais_residencia,
             'direccion': self.direccion,
             'cantidad_adultos': self.cantidad_adultos,
             'cantidad_ninos': self.cantidad_ninos,

@@ -31,8 +31,33 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class="form-label">DUI:</span>
-                                      <input type="text" class="form-control" id="dui" name="dui" required>
+                                        <span class="form-label" id="label_dui">DUI:</span>
+                                        <input type="text" class="form-control" id="dui" name="dui" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Tipo Documento</span>
+                                        <select class="form-control" id="tipo_documento" name="tipo_documento" min="1" required>
+                                            {% for tipo_document_value, tipo_document_label in tipo_document %}
+                                                <option value="{{ tipo_document_value }}">{{ tipo_document_label }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Telefono</span>
+                                      <input type="text" class="form-control" id="telefono" name="telefono" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">País</span>
+                                        <select class="form-control" id="pais_residencia" name="pais_residencia" required>
+                                            <!-- Options se llenarán dinámicamente con JavaScript -->
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -67,9 +92,12 @@
                                     <div class="form-group">
                                         <span class="form-label">ninos</span>
                                         <select class="form-control"  id="cantidad_ninos" name="cantidad_ninos" min="0" required>
-                                            <option>0</option>
                                             <option>1</option>
                                             <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
                                         </select>
                                         <span class="select-arrow"></span>
                                     </div>
@@ -106,6 +134,27 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- Agrega esto en el encabezado HTML -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    // Utilizando fetch para obtener la lista de países desde la API
+    fetch('https://restcountries.com/v3.1/all')
+        .then(response => response.json())
+        .then(data => {
+            // Obtener el elemento select
+            const selectPais = document.getElementById('pais_residencia');
+
+            // Iterar sobre los datos y agregar opciones al select
+            data.forEach(pais => {
+                const option = document.createElement('option');
+                option.value = pais.name.common;
+                option.text = pais.name.common;
+                selectPais.add(option);
+            });
+        })
+        .catch(error => console.error('Error al obtener la lista de países:', error));
+</script>
 
 <!-- Agrega esto en la sección de scripts -->
 {% comment %} <script>
@@ -179,6 +228,36 @@
             dateFormat: 'Y-m-d'  // Ajusta el formato según tu preferencia
         });
     });
-    </script>
+</script>
+
+<script>
+        $(document).ready(function() {
+            // Manejar el evento de cambio del select
+            $('#tipo_documento').on('change', function() {
+                // Obtener el valor seleccionado
+                var selectedValue = $(this).val();
+        
+                // Obtener el texto correspondiente a ese valor del template
+                var labelText = obtenerTextoPorValor(selectedValue);
+        
+                // Actualizar el contenido del span
+                $('#label_dui').text(labelText + ":");
+            });
+        
+            // Función para obtener el texto correspondiente al valor seleccionado desde el template
+            function obtenerTextoPorValor(valor) {
+                // Utiliza la tupla proporcionada en el template
+                {% for tipo_document_value, tipo_document_label in tipo_document %}
+                    if ("{{ tipo_document_value }}" === valor) {
+                        return "{{ tipo_document_value }}";
+                    }
+                {% endfor %}
+                
+                // Si no se encuentra, devolver cadena vacía
+                return '';
+            }
+        });
+</script>
+        
 
 {% endblock extra_js %}
