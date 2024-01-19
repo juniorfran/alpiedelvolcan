@@ -37,7 +37,7 @@ CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = False
 
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net', 'https://volcanosm.net']
 
 
 
@@ -115,6 +115,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'mysql':{
+        
     }
 }
 

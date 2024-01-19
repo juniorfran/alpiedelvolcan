@@ -63,7 +63,7 @@ class Reserva(models.Model):
     correo_electronico = models.EmailField()
     direccion = models.TextField()
     cantidad_adultos = models.PositiveIntegerField(validators=[MinValueValidator(0)])
-    cantidad_ninos = models.PositiveIntegerField(validators=[MinValueValidator(0)])
+    cantidad_ninos = models.PositiveIntegerField(validators=[MinValueValidator(0)], default=0)
     fecha_reserva = models.DateField(editable=True)
     qr_code_url = models.URLField(blank=True)
     qr_code = models.ImageField(upload_to='qrcodes', blank=True, null=True)
@@ -95,7 +95,7 @@ class Reserva(models.Model):
 
     def save(self, *args, **kwargs):
         # Calcular el total a pagar antes de guardar la reserva
-        self.total_pagar = (self.cantidad_adultos * self.precio_adulto) + (self.cantidad_ninos * self.precio_nino)
+        self.total_pagar = (self.cantidad_adultos * self.precio_adulto)
         self.total_pagar *= 1 + self.iva  # Agregar el IVA
         
         # Generar código de reserva único antes de guardar
