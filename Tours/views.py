@@ -73,7 +73,7 @@ def reservar_tour(request, tour_id):
         direccion = request.POST.get('direccion')
         # Obtén los datos del formulario directamente de request.POST
         cantidad_adultos = int(request.POST.get('cantidad_adultos'))
-        cantidad_ninos = int(request.POST.get('cantidad_ninos'))
+        #cantidad_ninos = int(request.POST.get('cantidad_ninos'))
         fecha_reserva = request.POST.get('fecha_reserva')
         
         #nuevo campos agregados
@@ -94,7 +94,7 @@ def reservar_tour(request, tour_id):
             correo_electronico=correo_electronico,
             direccion=direccion,
             cantidad_adultos=cantidad_adultos,
-            cantidad_ninos=cantidad_ninos,
+            #cantidad_ninos=cantidad_ninos,
             fecha_reserva=fecha_reserva,
             precio_adulto=precio_adulto,
             precio_nino=precio_nino,
@@ -152,3 +152,49 @@ def reserva_exitosa(request, reserva_id):
     }
 
     return render(request, 'reserva_exitosa.html', context)
+
+
+# import requests
+
+# def obtener_token(client_id, client_secret):
+#     url = "https://id.wompi.sv/connect/token"
+#     payload = {
+#         "grant_type": "client_credentials",
+#         "audience": "wompi_api",
+#         "client_id": client_id,
+#         "client_secret": client_secret,
+#     }
+#     headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+#     response = requests.post(url, data=payload, headers=headers)
+    
+#     if response.status_code == 200:
+#         data = response.json()
+#         access_token = data.get("access_token")
+#         return access_token
+#     else:
+#         print(f"Error al obtener el token: {response.status_code}")
+#         return None
+
+# # Usar las credenciales proporcionadas
+# client_id = "50163375-39c0-4dc7-8d8b-b1bc34f6e419"
+# client_secret = "2c68b6a6-9b41-42c7-b418-8315913bd006"
+
+# token = obtener_token(client_id, client_secret)
+
+# if token:
+#     # Ahora puedes usar el token en tus peticiones a la API de Wompi
+#     url_api = "https://api.wompi.sv/EnlacePago"
+#     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+#     response = requests.get(url_api, headers=headers)
+
+#     if response.status_code == 200:
+#         data = response.json()
+#         print(data)
+#     else:
+#         print(f"Error en la petición a la API: {response.status_code}")
+# else:
+#     print("No se pudo obtener el token de autenticación.")
+
+

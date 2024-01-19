@@ -31,12 +31,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class="form-label" id="label_dui">DUI:</span>
-                                        <input type="text" class="form-control" id="dui" name="dui" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
                                         <span class="form-label">Tipo Documento</span>
                                         <select class="form-control" id="tipo_documento" name="tipo_documento" min="1" required>
                                             {% for tipo_document_value, tipo_document_label in tipo_document %}
@@ -48,8 +42,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class="form-label">Telefono</span>
-                                      <input type="text" class="form-control" id="telefono" name="telefono" required>
+                                        <span class="form-label" id="label_dui">DUI:</span>
+                                        <input type="text" class="form-control" id="dui" name="dui" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -60,6 +54,14 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Telefono</span>
+                                      <input type="number" class="form-control" id="telefono" name="telefono" required>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <span class="form-label">Correo Electronico</span>
@@ -76,30 +78,20 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class="form-label">Adultos</span>
-                                        <select class="form-control" id="cantidad_adultos" name="cantidad_adultos" min="1" required>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                        </select>
-                                        <span class="select-arrow"></span>
+                                    <span class="form-label">Adultos</span>
+                                    <input type="number" class="form-control" id="cantidad_adultos" name="cantidad_adultos" required>
                                     </div>
                                 </div>
+                                {% comment %} <div class="col-md-4">
+                                    <div class="form-group">
+                                    <span class="form-label">Niños</span>
+                                    <input type="number" class="form-control" id="cantidad_ninos" name="cantidad_ninos" required>
+                                    </div>
+                                </div> {% endcomment %}
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <span class="form-label">ninos</span>
-                                        <select class="form-control"  id="cantidad_ninos" name="cantidad_ninos" min="0" required>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                        </select>
-                                        <span class="select-arrow"></span>
+                                        <label for="fecha_reserva" class="form-label">Fecha de Reserva</label>
+                                        <input class="form-control" type="date" id="fecha_reserva" name="fecha_reserva" required>
                                     </div>
                                 </div>
                             </div>
@@ -114,15 +106,10 @@
 
                             <!-- Con este bloque -->
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="fecha_reserva" class="form-label">Fecha de Reserva</label>
-                                        <input class="form-control" type="date" id="fecha_reserva" name="fecha_reserva" required>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="form-btn">
-                                <button type="submit" class="primary submit-btn">Reservar</button>
+                                <button type="submit" class="primary submit-btn">Pagar</button>
                             </div>
                     </div>
                 </div>
