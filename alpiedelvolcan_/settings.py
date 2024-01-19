@@ -26,29 +26,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-71ilsry+%0yrbexaf^j!f41b0i=t!g+8%pvd!1d8a)azph_nd-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
-    'alpiedelvolcan.azurewebsites.net',
-    '127.0.0.1',
-    'volcanosm.net',
-]
+ALLOWED_HOSTS = ['alpiedelvolcan.azurewebsites.net', 'http://0.0.0.0:8000/', '127.0.0.1', 'volcanosm.net']
+#CORS_ALLOWED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net/']
 
-# ...
-
-# Configuración de seguridad y HTTPS
+# Security & HTTPS settings
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True  # Cambiado a True para redirigir todo el tráfico a través de HTTPS
+SECURE_SSL_REDIRECT = False
 
-# ...
-
-# Configuración de CORS
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = [
-    'https://alpiedelvolcan.azurewebsites.net',
-    'https://volcanosm.net',
-]
+CSRF_TRUSTED_ORIGINS = ['https://alpiedelvolcan.azurewebsites.net', 'https://volcanosm.net']
+
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.ceinversiones.com'
