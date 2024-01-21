@@ -2,6 +2,25 @@ from django.db import models
 
 # Create your models here.
 
+class General_Description(models.Model):
+    """
+    This model represents the general description of a product. It is used to store information that applies to
+    """
+    titulo_largo = models.CharField( max_length=50)
+    titulo_corto = models.CharField(max_length=30)
+    medio_titulo = models.CharField(max_length=30)
+    descripcion_larga = models.TextField(max_length=500)
+    descripcion_corta = models.CharField(max_length=75)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        get_latest_by = 'fecha_creacion'
+        
+    #funcion str
+    def __str__(self):
+        return self.titulo_largo
+    
+
 class Barra_Principal (models.Model):
     email_contacto = models.CharField(max_length=100)
     numero_contacto = models.CharField(max_length=50)

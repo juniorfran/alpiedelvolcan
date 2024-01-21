@@ -13,6 +13,11 @@
     <!-- Incluye Popper.js y Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"/>
+    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"/>
     
     <!-- Tus otras etiquetas head aquí -->
 </head>
@@ -22,12 +27,8 @@
     <div class="container-fluid page-header">
         <div class="container">
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-                <h3 class="display-4 text-white text-uppercase">About</h3>
-                <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="">Home</a></p>
-                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
-                    <p class="m-0 text-uppercase">About</p>
-                </div>
+                <h3 class="display-4 text-white text-uppercase">Nosotros</h3>
+
             </div>
         </div>
     </div>
@@ -49,10 +50,10 @@
                     <p>{{ nosotros.descripcion }}</p>
                     <div class="row mb-4">
                         <div class="col-6">
-                            <img class="img-fluid" src="{% static 'img/about-1.jpg' %}" alt="Image 1">
+                            <img class="img-fluid" src="{{ nosotros.imagen_pequena_1.url }}" alt="Image 1">
                         </div>
                         <div class="col-6">
-                            <img class="img-fluid" src="{% static 'img/about-2.jpg' %}" alt="Image 2">
+                            <img class="img-fluid" src="{{ nosotros.imagen_pequena_2.url }}" alt="Image 2">
                         </div>
                     </div>
                     <a href="{{ nosotros.url_boton }}" class="btn btn-primary mt-1">{{ nosotros.texto_boton }}</a>
@@ -63,24 +64,50 @@
 </div>
 <!-- About End -->
 
-<!-- Feature Start -->
+{% comment %} <!-- Feature Start -->
 <div class="container-fluid pb-5">
-    <div class="container pb-5">
-        {% for servicio in servicios %}
+    <div class="container pb-8">
+        
         <div class="row">
-            <div class="col-md-4">
+            {% for servicio in servicios %}
+            <div class="col-md-6">
                 <div class="d-flex mb-4 mb-lg-0">
                     <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
-                        <img src="{{ servicio.Servicio_icono.url }}" alt="{{ servicio.servicio_titulo }}" class="fa fa-2x text-white">
+                        <img src="{{ servicio.Servicio_icono.url }}" alt="{{ servicio.servicio_titulo }}" class="fa fa-2x text-white"  style="height: 100px;">
                     </div>
                     <div class="d-flex flex-column">
                         <h5 class="">{{ servicio.servicio_titulo }}</h5>
-                        <p class="m-0">{{ servicio.servicio_descripcion }}</p>
+                        <p class="m-1">{{ servicio.servicio_descripcion }}</p>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        
+    </div>
+</div>
+<!-- Feature End --> {% endcomment %}
+
+<!-- Feature Start -->
+<div class="container-fluid pb-5">
+    <div class="container pb-8">
+        <div class="row">
+            <div class="slider-container">
+                {% for servicio in servicios %}
+                <div class="col-md-6">
+                    <div class="d-flex mb-4 mb-lg-0">
+                        <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-primary mr-3" style="height: 100px; width: 100px;">
+                            <img src="{{ servicio.Servicio_icono.url }}" alt="{{ servicio.servicio_titulo }}" class="fa fa-2x text-white"  style="height: 100px;">
+                        </div>
+                        <div class="d-flex flex-column">
+                            <h5 class="">{{ servicio.servicio_titulo }}</h5>
+                            <p class="m-1">{{ servicio.servicio_descripcion }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 <!-- Feature End -->
@@ -187,6 +214,7 @@
 
 {% block extra_js %}
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
 <script>
     $(document).ready(function () {
         // Captura el evento submit del formulario
@@ -218,6 +246,28 @@
         // Recargar la página al cerrar el modal de éxito
         $('#myModal').on('hidden.bs.modal', function () {
             location.reload();
+        });
+    });
+</script>
+
+<!-- Inicializa el slider con las opciones deseadas -->
+<script>
+    $(document).ready(function(){
+        $('.slider-container').slick({
+            slidesToShow: 3,  // Número de slides a mostrar
+            slidesToScroll: 1,  // Número de slides a desplazarse
+            autoplay: true,  // Reproducción automática
+            autoplaySpeed: 2000,  // Velocidad de reproducción automática en milisegundos
+            infinite: true,  // Bucle infinito
+            arrows: true,  // Desactiva las flechas de navegación
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }
+            ]
         });
     });
 </script>

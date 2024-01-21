@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info, Urls_interes
+from .models import General_Description
 
 @admin.register(Barra_Principal)
 class BarraPrincipalAdmin(admin.ModelAdmin):
@@ -28,3 +29,11 @@ class UrlsInfoAdmin(admin.ModelAdmin):
 @admin.register(Urls_interes)
 class UrlsInfoAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'fecha_creacion')
+    
+
+
+@admin.register(General_Description)
+class GeneralDescriptionAdmin(admin.ModelAdmin):
+    list_display = ('titulo_largo', 'titulo_corto', 'medio_titulo', 'fecha_creacion')
+    search_fields = ('titulo_largo', 'titulo_corto', 'medio_titulo')
+    ordering = ('-fecha_creacion',)

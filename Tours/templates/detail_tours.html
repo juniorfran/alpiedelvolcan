@@ -32,15 +32,18 @@
             <!-- Miniaturas de otras imágenes -->
             <div class="mt-4">
                 <div class="row">
-                    {% for imagen in tour.imagenes.all %}
-                        <div class="col-2 mb-2">
-                            <img src="{{ imagen.imagen.url }}" alt="Miniatura" class="img-thumbnail imagen-miniatura" data-imagen="{{ imagen.imagen.url }}" style="max-width: 100%;">
-                        </div>
-                    {% endfor %}
+                    {% if imagenes %}
+                        {% for imagen in imagenes %}
+                            <div class="col-2 mb-2">
+                                <img src="{{ imagen.url }}" alt="Miniatura" class="img-thumbnail imagen-miniatura" data-imagen="{{ imagen.url }}" style="max-width: 100%;">
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>No hay miniaturas disponibles.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
-
         <!-- Información del Tour -->
         <div class="col-md-6">
             <div class="mt-4">

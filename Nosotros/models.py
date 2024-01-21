@@ -20,6 +20,8 @@ class Nosotros(models.Model):
     subtitulo = models.CharField("Subtitulo", max_length=100)
     descripcion = models.TextField("Descripción")
     imagen = models.ImageField(upload_to=upload_to_nosotros, blank=False, null=False)
+    imagen_pequena_1 = models.ImageField(upload_to=upload_to_nosotros, blank=False, null=False)
+    imagen_pequena_2 = models.ImageField(upload_to=upload_to_nosotros, blank=False, null=False)
     texto_boton = models.CharField(max_length=50)
     url_boton = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)

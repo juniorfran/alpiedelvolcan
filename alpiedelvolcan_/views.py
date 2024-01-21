@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Tours.models import Tour
-from Configuraciones.models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info, Urls_interes
+from Configuraciones.models import Barra_Principal, CarruselInicio, Services_Bar, Team_bar, Contacts, Urls_info, Urls_interes, General_Description
 
 #vista para mostrar la pagina principal
 def index(request):
@@ -8,7 +8,7 @@ def index(request):
     tours = Tour.objects.all()
     
     #obtener la barra principal
-    barra_principal = Barra_Principal.objects.latest()
+    barra_principal = Barra_Principal.objects.latest('fecha_creacion')
     
     #obtener todos los carrusel de incio
     carrusel_incio = CarruselInicio.objects.all()
@@ -25,17 +25,9 @@ def index(request):
     #obtener todas las url de informacion
     urls_info = Urls_info.objects.all()
     
-    titulo_pagina = {
-        'titulo_largo': "AL PIE DEL VOLCAN",
-        'medio_titulo': "AL PIE DEL",
-        'titulo_corto': "VOLCAN",
-    }
-    descripciones = {
-        'descripcion_corta':'Aventura en el Volcan',
-        'descripcion_larga':'Encuentra aventuras y descubre en este viaje al pie del volcan, donde podrás disfrutar de una experiencia única.',
-        
-    }
-    
+    # Obtén la última descripción general
+    ultima_descripcion = General_Description.objects.latest('fecha_creacion')
+
     #urls de interes
     urls_interes = Urls_interes.objects.all()
     
@@ -49,12 +41,30 @@ def index(request):
         #los primeros 4 equipos en la barra de info
         'data_contact':data_contact,
         'urls_info':urls_info,
-        'titulo':titulo_pagina,
-        'descripcion':descripciones,
+        'ultima_descripcion': ultima_descripcion,
         'urls_interes':urls_interes,
         }
     
     
     return render(request, 'base.html', context)
+
+#vista para mostrar la pagina principal
+def footer(request):
+    
+    
+    data_contact = Contacts.objects.latest()#obtener todos los datos de contacto
+    urls_info = Urls_info.objects.all() #obtener todas las url de informacion
+    ultima_descripcion = General_Description.objects.latest('fecha_creacion') # Obtén la última descripción general
+    urls_interes = Urls_interes.objects.all() #urls de interes
+    
+    context={
+        'data_contact':data_contact,
+        'urls_info':urls_info,
+        'ultima_descripcion': ultima_descripcion,
+        'urls_interes':urls_interes,
+        }
+    
+    
+    return render(request, 'sections/footer.html', context)
 
 

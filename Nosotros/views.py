@@ -1,6 +1,6 @@
 from django.http import Http404, JsonResponse
 from django.shortcuts import render
-from Configuraciones.models import Contacts, Services_Bar, Team_bar, Urls_info, Urls_interes
+from Configuraciones.models import Barra_Principal, Contacts, General_Description, Services_Bar, Team_bar, Urls_info, Urls_interes
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Nosotros, Nosotros_Servicios, Solicitud_Oferta, Nosotros_Oferta
@@ -16,22 +16,16 @@ def nosotros_index(request):
     #obetner todos los teams
     teams_bar = Team_bar.objects.all().order_by("id")
     
+    # Obtén la última descripción general
+    ultima_descripcion = General_Description.objects.latest('fecha_creacion')
+    #obtener la barra principal
+    barra_principal = Barra_Principal.objects.latest('fecha_creacion')
+    
     #obtener todos los datos de contacto
     data_contact = Contacts.objects.latest()
     
     #obtener todas las url de informacion
     urls_info = Urls_info.objects.all()
-    
-    titulo_pagina = {
-        'titulo_largo': "AL PIE DEL VOLCAN",
-        'medio_titulo': "AL PIE DEL",
-        'titulo_corto': "VOLCAN",
-    }
-    descripciones = {
-        'descripcion_corta':'Aventura en el Volcan',
-        'descripcion_larga':'Encuentra aventuras y descubre en este viaje al pie del volcan, donde podrás disfrutar de una experiencia única.',
-        
-    }
     
     #urls de interes
     urls_interes = Urls_interes.objects.all()
@@ -83,8 +77,8 @@ def nosotros_index(request):
         #los primeros 4 equipos en la barra de info
         'data_contact':data_contact,
         'urls_info':urls_info,
-        'titulo':titulo_pagina,
-        'descripcion':descripciones,
+        'ultima_descripcion': ultima_descripcion,
+        'barra_principal':barra_principal,
         'urls_interes':urls_interes,
         'ultima_oferta': ultima_oferta,
         'nosotros': nosotros,

@@ -112,12 +112,20 @@ WSGI_APPLICATION = 'alpiedelvolcan_.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'mysql':{
-        
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cuadmesv_tour',
+        'USER': 'cuadmesv_tour',
+        'PASSWORD': '8LC*do.&7Emh',
+        'HOST': 'www.metrocuadrado.com.sv',
+        'PORT': '3306',  # Puerto predeterminado de MySQL
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 

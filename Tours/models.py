@@ -30,7 +30,6 @@ class Tour(models.Model):
     
     imagen = models.ImageField(upload_to='tours')
     tipo_tour = models.ForeignKey(TipoTour, on_delete=models.SET_NULL, null=True, blank=True)
-    imagenes = models.ManyToManyField('ImagenTour', related_name='tours')
 
     def obtener_imagen_principal(self):
         return self.imagen.url
@@ -39,7 +38,11 @@ class Tour(models.Model):
         return f"{self.titulo} - ${self.precio_adulto}"
 
 class ImagenTour(models.Model):
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='imagenes')
     imagen = models.ImageField(upload_to='tours/%Y/%m/%d/')
+    imagen1 = models.ImageField(upload_to='tours/%Y/%m/%d/')
+    imagen2 = models.ImageField(upload_to='tours/%Y/%m/%d/')
+    imagen3 = models.ImageField(upload_to='tours/%Y/%m/%d/')
 
     def __str__(self):
         return f"Imagen"
