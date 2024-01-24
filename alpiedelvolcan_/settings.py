@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'Configuraciones',
     'Nosotros',
     'Contactanos',
+    'Transacciones',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'Nosotros/templates'),
             os.path.join(BASE_DIR, 'Contactanos/templates'),
             os.path.join(BASE_DIR, 'Configuraciones/templates'),
+            os.path.join(BASE_DIR, 'Transacciones/templates'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {

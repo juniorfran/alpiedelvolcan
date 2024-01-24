@@ -33,6 +33,9 @@ urlpatterns = [
     
     #url para nosotros
     path('nosotros/', include('Nosotros.urls')),
+    
+    #url para pagos wompi
+    path('pagos/', include('Transacciones.urls')),
 ]
 
 

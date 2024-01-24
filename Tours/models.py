@@ -60,7 +60,7 @@ class Resena(models.Model):
     
 class Reserva(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='reservas')
-    codigo_reserva = models.CharField(max_length=20, unique=True)
+    codigo_reserva = models.CharField(max_length=85, unique=True)
     nombre = models.CharField(max_length=255)
     dui = models.CharField(max_length=10)  # Asumiendo que el DUI tiene 10 dígitos
     correo_electronico = models.EmailField()

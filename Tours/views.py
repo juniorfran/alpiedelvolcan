@@ -1,9 +1,29 @@
 from django.shortcuts import get_object_or_404, redirect, render
-
+#from Transacciones.views import crear_enlace_pago
 from Configuraciones.models import Barra_Principal, Contacts, General_Description, Urls_info, Urls_interes
+from Transacciones.wompi_connect import authenticate_wompi
+from Transacciones.wompi_consulta import make_wompi_get_request
+from Transacciones.wompi_envio import create_payment_link
 from .models import ImagenTour, Resena, Tour, Reserva
 from .forms import ResenaForm, ReservaForm
 from django.utils import timezone
+from Transacciones.models import EnlacePago
+
+
+# Tus credenciales de Wompi
+Client_id = "86d5de4c-dd6a-42d2-8d5b-ff5aed09ae83"
+Client_secret = "c3bb69e4-7d19-486b-b9d8-1b2b592714d5"
+
+# Autenticarse y obtener el token
+access_token = authenticate_wompi(Client_id, Client_secret)
+
+if access_token:
+    # Hacer una consulta utilizando el token
+    consulta_result = make_wompi_get_request("EnlacePago", access_token)
+
+    if consulta_result:
+        print("Consulta exitosa:")
+        #print(consulta_result)
 
 def tours_index(request):
     # Obtener todos los tours desde la base de datos
@@ -72,7 +92,7 @@ def reservar_tour(request, tour_id):
     data_contact = Contacts.objects.latest()#obtener todos los datos de contacto
     urls_info = Urls_info.objects.all() #obtener todas las url de informacion
     ultima_descripcion = General_Description.objects.latest('fecha_creacion') # Obtén la última descripción general
-    urls_interes = Urls_interes.objects.all() #urls de interes
+    urls_interes = Urls_interes.objects.all() #urls de interes  
     
     
     if request.method == 'POST':
@@ -94,8 +114,6 @@ def reservar_tour(request, tour_id):
         # Obtener los precios de adulto y nino del tour
         precio_adulto = tour.precio_adulto
         precio_nino = tour.precio_nino
-        
-        
 
         reserva = Reserva(
             tour=tour,
@@ -114,6 +132,34 @@ def reservar_tour(request, tour_id):
         )
         reserva.save()
         
+        # Obtén la instancia de Reserva después de guardarla en la base de datos
+        reserva_instance = Reserva.objects.get(pk=reserva.id)  
+
+        # Asigna el valor de reserva_id después de obtener la instancia
+        reserva_id = reserva_instance.id
+
+        client_id = Client_id
+        client_secret = Client_secret
+        comercio_id = reserva.codigo_reserva
+        monto = float(reserva.total_pagar)
+        nombre_producto = tour.titulo
+        descripcionProducto = tour.descripcion
+        imagenProducto = tour.imagen.url
+        cantidad = reserva.cantidad_adultos
+
+        # Llama a la función para crear el enlace de pago
+        enlace_pago = create_payment_link(
+            reserva_id,
+            client_id,
+            client_secret,
+            comercio_id,
+            monto,
+            nombre_producto,
+            descripcionProducto,
+            imagenProducto,
+            cantidad
+            )
+    
         # Redirige a la página de éxito y pasa el reserva_id como parámetro
         return redirect('reserva_exitosa', reserva_id=reserva.id)
     # Renderiza el formulario para el método GET
@@ -126,9 +172,11 @@ def reservar_tour(request, tour_id):
         'urls_interes':urls_interes,
         'tour': tour,
         'tipo_document':tipo_document,
+        
     }
     
     return render(request, 'reservar_tour.html', context)
+
 
 def reserva_exitosa(request, reserva_id):
     reserva = Reserva.objects.get(pk=reserva_id)
@@ -139,6 +187,10 @@ def reserva_exitosa(request, reserva_id):
     urls_info = Urls_info.objects.all() #obtener todas las url de informacion
     ultima_descripcion = General_Description.objects.latest('fecha_creacion') # Obtén la última descripción general
     urls_interes = Urls_interes.objects.all() #urls de interes
+    
+
+    # Obtener todos los enlaces de pago asociados a la reserva
+    enlace_pago = EnlacePago.objects.get(reserva=reserva)
 
     
     #urls de interes
@@ -151,52 +203,9 @@ def reserva_exitosa(request, reserva_id):
         'ultima_descripcion': ultima_descripcion,
         'urls_interes':urls_interes,
         'reserva': reserva,
+        'enlace_pago': enlace_pago,
     }
 
     return render(request, 'reserva_exitosa.html', context)
-
-
-# import requests
-
-# def obtener_token(client_id, client_secret):
-#     url = "https://id.wompi.sv/connect/token"
-#     payload = {
-#         "grant_type": "client_credentials",
-#         "audience": "wompi_api",
-#         "client_id": client_id,
-#         "client_secret": client_secret,
-#     }
-#     headers = {"Content-Type": "application/x-www-form-urlencoded"}
-
-#     response = requests.post(url, data=payload, headers=headers)
-    
-#     if response.status_code == 200:
-#         data = response.json()
-#         access_token = data.get("access_token")
-#         return access_token
-#     else:
-#         print(f"Error al obtener el token: {response.status_code}")
-#         return None
-
-# # Usar las credenciales proporcionadas
-# client_id = "50163375-39c0-4dc7-8d8b-b1bc34f6e419"
-# client_secret = "2c68b6a6-9b41-42c7-b418-8315913bd006"
-
-# token = obtener_token(client_id, client_secret)
-
-# if token:
-#     # Ahora puedes usar el token en tus peticiones a la API de Wompi
-#     url_api = "https://api.wompi.sv/EnlacePago"
-#     headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-
-#     response = requests.get(url_api, headers=headers)
-
-#     if response.status_code == 200:
-#         data = response.json()
-#         print(data)
-#     else:
-#         print(f"Error en la petición a la API: {response.status_code}")
-# else:
-#     print("No se pudo obtener el token de autenticación.")
 
 
