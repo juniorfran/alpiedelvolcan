@@ -71,7 +71,7 @@ def create_payment_link(reserva_id, client_id, client_secret, comercio_id, monto
             descripcionProducto=descripcion_Producto,
             imagenProducto=imagenProducto,
             cantidad=cantidad,
-            idEnlace = ["idEnlace"]
+            idEnlace = payment_link_data["idEnlace"]
         )
 
         return enlace_pago
