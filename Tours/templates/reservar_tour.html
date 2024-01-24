@@ -90,7 +90,7 @@
                                 </div> {% endcomment %}
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="fecha_reserva" class="form-label" required>Fecha de Reserva</label>
+                                        <label for="fecha_reserva" class="form-label">Fecha de Reserva</label>
                                         <input class="form-control" type="date" id="fecha_reserva" name="fecha_reserva" required>
                                     </div>
                                 </div>
@@ -244,6 +244,20 @@
                 return '';
             }
         });
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById("tuFormulario");
+        form.addEventListener("submit", function (event) {
+            var fechaReserva = document.getElementById("fecha_reserva").value;
+            if (!fechaReserva) {
+                alert("Por favor, selecciona una fecha de reserva.");
+                event.preventDefault(); // Evita que se envíe el formulario si la fecha está vacía
+            }
+        });
+    });
 </script>
         
 

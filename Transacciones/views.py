@@ -7,12 +7,12 @@ from datetime import datetime, timedelta
 # Create your views here.
 
 # Tus credenciales de Wompi
-# Client_id = "86d5de4c-dd6a-42d2-8d5b-ff5aed09ae83"
-# Client_secret = "c3bb69e4-7d19-486b-b9d8-1b2b592714d5"
+Client_id = "86d5de4c-dd6a-42d2-8d5b-ff5aed09ae83"
+Client_secret = "c3bb69e4-7d19-486b-b9d8-1b2b592714d5"
 
 # Cliente ID y Secret para autenticación con Wompi
-Client_id = "84697956-57f9-4171-ac57-0e885d45a630"
-Client_secret = "dfb98854-b75b-40ad-8a0e-5e4914ba32f6"
+# Client_id = "84697956-57f9-4171-ac57-0e885d45a630"
+# Client_secret = "dfb98854-b75b-40ad-8a0e-5e4914ba32f6"
 
 
 # Autenticarse y obtener el token
@@ -48,14 +48,14 @@ def consultar_enlace_pago(enlace_pago_id, client_id, client_secret):
         print("Error al obtener información del enlace de pago.")
 
 # Cliente ID y Secret para autenticación con Wompi
-Client_id = "84697956-57f9-4171-ac57-0e885d45a630"
-Client_secret = "dfb98854-b75b-40ad-8a0e-5e4914ba32f6"
+Client_id = "86d5de4c-dd6a-42d2-8d5b-ff5aed09ae83"
+Client_secret = "c3bb69e4-7d19-486b-b9d8-1b2b592714d5"
 
 # ID del enlace de pago que deseas consultar
-enlace_pago_id = "933231"
+#enlace_pago_id = "933231"
 
 # Llamar a la función para realizar la consulta del enlace de pago
-consultar_enlace_pago(enlace_pago_id, Client_id, Client_secret)
+#consultar_enlace_pago(enlace_pago_id, Client_id, Client_secret)
 
 
 
