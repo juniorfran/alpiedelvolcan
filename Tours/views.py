@@ -11,8 +11,10 @@ from Transacciones.models import EnlacePago
 
 
 # Tus credenciales de Wompi
-Client_id = "86d5de4c-dd6a-42d2-8d5b-ff5aed09ae83"
-Client_secret = "c3bb69e4-7d19-486b-b9d8-1b2b592714d5"
+# Client_id = "86d5de4c-dd6a-42d2-8d5b-ff5aed09ae83"
+# Client_secret = "c3bb69e4-7d19-486b-b9d8-1b2b592714d5"
+Client_id = "84697956-57f9-4171-ac57-0e885d45a630"
+Client_secret = "dfb98854-b75b-40ad-8a0e-5e4914ba32f6"
 
 # Autenticarse y obtener el token
 access_token = authenticate_wompi(Client_id, Client_secret)
@@ -143,7 +145,7 @@ def reservar_tour(request, tour_id):
         comercio_id = reserva.codigo_reserva
         monto = float(reserva.total_pagar)
         nombre_producto = tour.titulo
-        descripcionProducto = tour.descripcion
+        descripcion_Producto = tour.descripcion
         imagenProducto = tour.imagen.url
         cantidad = reserva.cantidad_adultos
 
@@ -155,7 +157,7 @@ def reservar_tour(request, tour_id):
             comercio_id,
             monto,
             nombre_producto,
-            descripcionProducto,
+            descripcion_Producto,
             imagenProducto,
             cantidad
             )

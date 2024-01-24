@@ -24,7 +24,7 @@ def make_wompi_post_request(endpoint, access_token, data):
         return None
     
 
-def create_payment_link(reserva_id, client_id, client_secret, comercio_id, monto, nombre_producto, descripcionProducto, imagenProducto, cantidad, **kwargs):
+def create_payment_link(reserva_id, client_id, client_secret, comercio_id, monto, nombre_producto, descripcion_Producto, imagenProducto, cantidad, **kwargs):
     # Autenticar con Wompi
     access_token = authenticate_wompi(client_id, client_secret)
 
@@ -40,7 +40,7 @@ def create_payment_link(reserva_id, client_id, client_secret, comercio_id, monto
             "identificadorEnlaceComercio": comercio_id,
             "monto": monto,
             "nombreProducto": nombre_producto,
-            "descripcionProducto":descripcionProducto,
+            "descripcionProducto":descripcion_Producto,
             "urlImagenProducto": imagenProducto,
             "cantidadPorDefecto": cantidad,
             # "metadata": {
@@ -68,9 +68,10 @@ def create_payment_link(reserva_id, client_id, client_secret, comercio_id, monto
             url_qr_code=payment_link_data["urlQrCodeEnlace"],
             url_enlace=payment_link_data["urlEnlace"],
             esta_productivo=payment_link_data["estaProductivo"],
-            descripcionProducto=descripcionProducto,
+            descripcionProducto=descripcion_Producto,
             imagenProducto=imagenProducto,
-            cantidad=cantidad
+            cantidad=cantidad,
+            idEnlace = ["idEnlace"]
         )
 
         return enlace_pago
