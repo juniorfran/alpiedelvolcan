@@ -245,20 +245,6 @@
             }
         });
 </script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var form = document.getElementById("tuFormulario");
-        form.addEventListener("submit", function (event) {
-            var fechaReserva = document.getElementById("fecha_reserva").value;
-            if (!fechaReserva) {
-                alert("Por favor, selecciona una fecha de reserva.");
-                event.preventDefault(); // Evita que se envíe el formulario si la fecha está vacía
-            }
-        });
-    });
-</script>
         
 
 {% endblock extra_js %}

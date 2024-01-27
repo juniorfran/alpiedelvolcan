@@ -17,8 +17,8 @@ class EnlacePago(models.Model):
     esta_productivo = models.BooleanField()
     descripcionProducto = models.TextField()
     cantidad = models.CharField(max_length=5)
-    imagenProducto = models.URLField(max_length=250)
-    idEnlace = models.CharField(max_length=150, default=0)
+    imagenProducto = models.URLField(max_length=250, null=True)
+    idEnlace = models.CharField(max_length=150)
 
     def __str__(self):
         return f"EnlacePago {self.id}: {self.nombre_producto}"
