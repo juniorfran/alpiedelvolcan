@@ -149,7 +149,7 @@ def reservar_tour(request, tour_id):
         # Asigna el valor de reserva_id después de obtener la instancia
         reserva_id = reserva_instance.id
         iva_calc = float(reserva.precio_adulto) * float(0.13)
-        precio_adulto_mas_iva = iva_calc + reserva.precio_adulto
+        precio_adulto_mas_iva = iva_calc + float(reserva.precio_adulto)
 
         client_id = Client_id
         client_secret = Client_secret
